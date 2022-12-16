@@ -1,0 +1,192 @@
+C51 COMPILER V9.51   DISPLPLAY_SLOT_MAIN                                                   10/04/2018 18:56:11 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE DISPLPLAY_SLOT_MAIN
+OBJECT MODULE PLACED IN displplay_slot_main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE displplay_slot_main.c ROM(COMPACT) OPTIMIZE(9,SPEED) REGFILE(.\DisplayRoule
+                    -tte.ORC) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "display_slot.h"
+   2          #include <intrins.h>
+   3          bit dir;
+   4          void mbiSend();
+   5          extern unsigned char xdata screen[];
+   6          extern unsigned char idata rtc_ram[64];
+   7          #define BALLS 0
+   8          #define START_TIME  17
+   9          #define FULL_TIME   21
+  10          void ptr(char);
+  11          
+  12          #ifdef USE_NRF24
+              const uint8_t code tx_address[5] = {0xE7,0xE7,0xE7,0xE7,0xE7};
+              const uint8_t code rx_address[5] = {0xD7,0xD7,0xD7,0xD7,0xD7};
+              void    nrf24_init();
+              void    nrf24_rx_address(uint8_t* adr);
+              void    nrf24_tx_address(uint8_t* adr);
+              void    nrf24_config(uint8_t channel, uint8_t pay_length);
+              extern bit send_start;
+              extern uint8_t data_array[4];
+              uint8_t nrf24_isSending();
+              uint8_t nrf24_dataReady();
+              void    nrf24_powerUpRx();
+              void    nrf24_getData(uint8_t* dat);
+              uint8_t nrf24_lastMessageStatus();
+              void addBall(char b);
+              void    nrf24_send(uint8_t* value);
+              #endif
+  29          
+  30          void main() 
+  31          {
+  32   1      
+  33   1        int i;
+  34   1        unsigned char d;
+  35   1        char mb;
+  36   1        
+  37   1        Init_Device();
+  38   1        WATCHDOG;
+  39   1        //init MBI
+  40   1        mbiLE=0;
+  41   1        Dclk=0;
+  42   1        sdi=0;            
+  43   1        RST=1;
+  44   1        _nop_();
+  45   1        _nop_();
+  46   1        _nop_();
+  47   1        RST=0;
+  48   1        _nop_();
+  49   1        _nop_();
+  50   1        _nop_();
+  51   1        CNT=0;
+  52   1        _nop_();
+  53   1        _nop_();
+  54   1        _nop_();
+C51 COMPILER V9.51   DISPLPLAY_SLOT_MAIN                                                   10/04/2018 18:56:11 PAGE 2   
+
+  55   1        CNT=1;
+  56   1        _nop_();
+  57   1        _nop_();
+  58   1        _nop_();
+  59   1        CNT=0;
+  60   1        //switch off all segments while init
+  61   1        
+  62   1        mbiInit();
+  63   1        init_i2c();
+  64   1        rtc_init();
+  65   1        
+  66   1        // ------ 
+  67   1        WATCHDOG;
+  68   1        for (i=0;i<(NUM_OF_MBI*NUM_OF_COLUMNS*16);i++)
+  69   1         screen[i]=0x00;
+  70   1        CNT=0;
+  71   1        RST=0;
+  72   1        d=16;
+  73   1        mb=0;
+  74   1       #ifdef USE_NRF24
+                  /* init hardware pins */
+                nrf24_init();
+                  
+                  /* Channel #2 , payload length: 4 */
+                nrf24_config(2,4);
+              
+                  /* Set the device addresses */
+                nrf24_tx_address(tx_address);
+                nrf24_rx_address(rx_address);   
+                 data_array[0] = 0x00;
+                 data_array[1] = 0xAA;
+                 data_array[2] = 5;
+                 data_array[3] = -5;
+                 nrf24_send(data_array);
+                 WATCHDOG;   
+                 while(nrf24_isSending())
+                    WATCHDOG;
+                 mb=nrf24_lastMessageStatus(); //i can check the status
+                 nrf24_powerUpRx();
+               #endif
+  95   1       if (!rtc_readram())
+  96   1        {
+  97   2           //crc is not good
+  98   2          
+  99   2          for (d=0;d<37;d++)
+ 100   2           {
+ 101   3             rtc_ram[BALLS+d] = -1;
+ 102   3            
+ 103   3           }
+ 104   2          *((unsigned long *)(&rtc_ram[FULL_TIME]))=0;
+ 105   2        //  rtc_writeTime(0);
+ 106   2          rtc_writeram();
+ 107   2        }
+ 108   1        WATCHDOG;
+ 109   1        for (d=0;d<37;d++)
+ 110   1           {
+ 111   2             if (rtc_ram[BALLS+d]>36)
+ 112   2                 rtc_ram[BALLS+d]= -1;
+ 113   2             WATCHDOG;
+ 114   2           }
+ 115   1       // *((unsigned long *)(&rtc_ram[START_TIME]))=rtc_readTime();
+ 116   1        TR2=1; //start timer 2 to 800Hz
+C51 COMPILER V9.51   DISPLPLAY_SLOT_MAIN                                                   10/04/2018 18:56:11 PAGE 3   
+
+ 117   1        WATCHDOG;
+ 118   1        d=0;
+ 119   1        KbdSetup();
+ 120   1        led=0;
+ 121   1        while (1) {
+ 122   2            WATCHDOG;
+ 123   2            while (!TF2H); //800HZ refresh rate
+ 124   2            TF2H=0;
+ 125   2            mbiSend();     
+ 126   2           
+ 127   2            if (d>16)
+ 128   2            {
+ 129   3              d=0;
+ 130   3      #ifdef USE_NRF24        
+                      if (_testbit_(send_start))
+                      {
+                        if (!nrf24_isSending())
+                        {
+                          //transmith finished
+                          mb=nrf24_lastMessageStatus(); //i can check the status
+                          nrf24_powerUpRx(); //go to recieve mode
+                          
+                        }
+                      }
+                      else
+                      {
+                        if(nrf24_dataReady())
+                        {
+                          nrf24_getData(data_array); 
+                          if ( (data_array[0]==0) && (data_array[1]==0xaa) && (data_array[2]==-data_array[3]))
+                          {
+                             //ball recieved from external
+                             led=!led;
+                          //   addBall(data_array[2]);
+                          }
+                        }
+                      }
+              #endif      
+ 155   3              
+ 156   3              KbdLoop();
+ 157   3            }
+ 158   2            else
+ 159   2             ptr(d&0xf);
+ 160   2            d++;
+ 161   2          
+ 162   2        }
+ 163   1      
+ 164   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    186    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

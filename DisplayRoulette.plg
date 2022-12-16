@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Display_slot\DisplayRoulette.uvproj
+Project File Date:  09/10/2017
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling display_slot_init.c...
+compiling displplay_slot_main.c...
+compiling rtc.c...
+compiling MBI.c...
+assembling MBI.src...
+compiling i2c.c...
+i2c.c(255): warning C206: 'test': missing function-prototype
+compiling nrf24.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?NRF24_INIT?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_NRF24_CONFIG?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_NRF24_RX_ADDRESS?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_NRF24_TX_ADDRESS?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?NRF24_DATAREADY?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_NRF24_GETDATA?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_NRF24_SEND?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?NRF24_ISSENDING?NRF24
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?NRF24_LASTMESSAGESTATUS?NRF24
+Program Size: data=138.2 xdata=643 code=3304
+"DisplayRoulette" - 0 Error(s), 10 Warning(s).
+Load "D:\\Display_slot\\DisplayRoulette" 
+Flash Erase Done.
+Load "D:\\Display_slot\\DisplayRoulette" 

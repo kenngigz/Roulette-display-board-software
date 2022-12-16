@@ -1,0 +1,1381 @@
+; .\MBI.SRC generated from: MBI.c
+; COMPILER INVOKED BY:
+;        C:\Keil\C51\BIN\C51.EXE MBI.c ROM(COMPACT) OPTIMIZE(9,SPEED) REGFILE(.\DisplayRoulette.ORC) BROWSE DEBUG OBJECTEXTEND TABS(2) SRC(.\MBI.SRC)
+
+$NOMOD51
+
+NAME	MBI
+
+CCF2	BIT	0D8H.2
+TB80	BIT	098H.3
+IDA0	DATA	096H
+SPI0CKR	DATA	0A2H
+Dclk	BIT	080H.2
+CCF3	BIT	0D8H.3
+IDA1	DATA	0F4H
+P0	DATA	080H
+SPIEN	BIT	0F8H.0
+CCF4	BIT	0D8H.4
+P1	DATA	090H
+CCF5	BIT	0D8H.5
+P2	DATA	0A0H
+ADC0CF	DATA	0BCH
+AC	BIT	0D0H.6
+PCA0	DATA	0F9H
+EIE1	DATA	0E6H
+RTC0KEY	DATA	0AEH
+EA	BIT	0A8H.7
+MCE0	BIT	098H.5
+EIE2	DATA	0E7H
+PSCTL	DATA	08FH
+CF	BIT	0D8H.7
+IT01CF	DATA	0E4H
+ADC0CN	DATA	0E8H
+P0MDOUT	DATA	0A4H
+P1MDOUT	DATA	0A5H
+TMR2RLH	DATA	0CBH
+IE	DATA	0A8H
+P2MDOUT	DATA	0A6H
+TMR3RLH	DATA	093H
+EIP1	DATA	0F6H
+TXBMT	BIT	0F8H.1
+EIP2	DATA	0F7H
+IDA0CN	DATA	0B9H
+PCA0CPH0	DATA	0FCH
+TMR2RLL	DATA	0CAH
+IDA1CN	DATA	0B5H
+PCA0CPH1	DATA	0EAH
+TMR3RLL	DATA	092H
+DP	DATA	082H
+PCA0CPH2	DATA	0ECH
+CR	BIT	0D8H.6
+T2SPLIT	BIT	0C8H.3
+TF2H	BIT	0C8H.7
+ADC0GT	DATA	0C3H
+PCA0CPH3	DATA	0EEH
+REN0	BIT	098H.4
+PCA0CPH4	DATA	0FEH
+PCA0CPL0	DATA	0FBH
+PCA0CPL1	DATA	0E9H
+PCA0CPM0	DATA	0DAH
+PCA0MD	DATA	0D9H
+PCA0CN	DATA	0D8H
+PCA0CPH5	DATA	0D3H
+PCA0CPL2	DATA	0EBH
+PCA0CPM1	DATA	0DBH
+TF2L	BIT	0C8H.6
+PCA0CPL3	DATA	0EDH
+PCA0CPM2	DATA	0DCH
+ADC0TK	DATA	0BAH
+IP	DATA	0B8H
+ARBLOST	BIT	0C0H.2
+ADC0LT	DATA	0C5H
+PCA0CPL4	DATA	0FDH
+PCA0CPM3	DATA	0DDH
+PCA0CPM4	DATA	0DEH
+PCA0CPL5	DATA	0D2H
+CRC0CN	DATA	084H
+CY	BIT	0D0H.7
+SI	BIT	0C0H.0
+PCA0CPM5	DATA	0CEH
+CE24L01	BIT	090H.3
+XBR0	DATA	0E1H
+SMB0CF	DATA	0C1H
+PFE0CN	DATA	0E3H
+XBR1	DATA	0E2H
+EMI0CN	DATA	0AAH
+ADC0MX	DATA	0BBH
+REF0CN	DATA	0D1H
+REG0CN	DATA	0C9H
+CRC0IN	DATA	085H
+AD0INT	BIT	0E8H.5
+ONESHOT	DATA	0AFH
+SP	DATA	081H
+TF2CEN	BIT	0C8H.4
+OV	BIT	0D0H.2
+SMB0CN	DATA	0C0H
+BURSTEN	BIT	0E8H.6
+TMR2	DATA	0CCH
+MODF	BIT	0F8H.5
+TMR3	DATA	094H
+P0ODEN	DATA	0B0H
+S0MODE	BIT	098H.7
+VDM0CN	DATA	0FFH
+P0MDIN	DATA	0F1H
+CPT0MD	DATA	09DH
+CPT0CN	DATA	09BH
+P1MDIN	DATA	0F2H
+CPT1MD	DATA	09CH
+CPT1CN	DATA	09AH
+P2MDIN	DATA	0F3H
+TF2LEN	BIT	0C8H.5
+P0MASK	DATA	0C7H
+SPI0CN	DATA	0F8H
+P1MASK	DATA	0BFH
+PCON	DATA	087H
+SPIF	BIT	0F8H.7
+T2RCLK	BIT	0C8H.1
+TMOD	DATA	089H
+TCON	DATA	088H
+led	BIT	090H.2
+WCOL	BIT	0F8H.6
+CRC0FLIP	DATA	0DFH
+NSSMD0	BIT	0F8H.2
+NSSMD1	BIT	0F8H.3
+TMR2CN	DATA	0C8H
+P0SKIP	DATA	0D4H
+TMR3CN	DATA	091H
+T2XCLK	BIT	0C8H.0
+P1SKIP	DATA	0D5H
+P2SKIP	DATA	0D6H
+IE0	BIT	088H.1
+CPT0MX	DATA	09FH
+IE1	BIT	088H.3
+OSCICL	DATA	0B3H
+CPT1MX	DATA	09EH
+CLKSEL	DATA	0A9H
+sdi	BIT	080H.6
+B	DATA	0F0H
+ADC0H	DATA	0BEH
+OSCICN	DATA	0B2H
+TMR2RL	DATA	0CAH
+ADC0L	DATA	0BDH
+TMR3RL	DATA	092H
+sdo	BIT	080H.3
+ACC	DATA	0E0H
+IDA0H	DATA	097H
+ES0	BIT	0A8H.4
+IDA1H	DATA	0F5H
+AD0EN	BIT	0E8H.7
+ET0	BIT	0A8H.1
+PCA0CP0	DATA	0FBH
+ET1	BIT	0A8H.3
+TF0	BIT	088H.5
+PCA0CP1	DATA	0E9H
+CLKMUL	DATA	0ABH
+mbiLE	BIT	0A0H.4
+ET2	BIT	0A8H.5
+RI0	BIT	098H.0
+TF1	BIT	088H.7
+PCA0CP2	DATA	0EBH
+IDA0L	DATA	096H
+PCA0CP3	DATA	0EDH
+IDA1L	DATA	0F4H
+TH0	DATA	08CH
+EX0	BIT	0A8H.0
+TI0	BIT	098H.1
+IT0	BIT	088H.0
+PCA0CP4	DATA	0FDH
+PCA0H	DATA	0FAH
+TH1	DATA	08DH
+MASTER	BIT	0C0H.7
+EX1	BIT	0A8H.2
+IT1	BIT	088H.2
+PCA0CP5	DATA	0D2H
+P	BIT	0D0H.0
+ACK	BIT	0C0H.1
+OSCXCN	DATA	0B1H
+TL0	DATA	08AH
+PCA0L	DATA	0F9H
+TL1	DATA	08BH
+TXMODE	BIT	0C0H.6
+PS0	BIT	0B8H.4
+PT0	BIT	0B8H.1
+RS0	BIT	0D0H.3
+PT1	BIT	0B8H.3
+RS1	BIT	0D0H.4
+PT2	BIT	0B8H.5
+TR0	BIT	088H.4
+TR1	BIT	088H.6
+TR2	BIT	0C8H.2
+PX0	BIT	0B8H.0
+PX1	BIT	0B8H.2
+DPH	DATA	083H
+ADC0GTH	DATA	0C4H
+DPL	DATA	082H
+ADC0GTL	DATA	0C3H
+SBUF0	DATA	099H
+ESPI0	BIT	0A8H.6
+ADC0LTH	DATA	0C6H
+RSTSRC	DATA	0EFH
+P0MAT	DATA	0D7H
+CRC0DAT	DATA	086H
+P1MAT	DATA	0CFH
+SCON0	DATA	098H
+ADC0LTL	DATA	0C5H
+STA	BIT	0C0H.5
+PSPI0	BIT	0B8H.6
+SMB0DAT	DATA	0C2H
+TMR2H	DATA	0CDH
+SPI0CFG	DATA	0A1H
+TMR3H	DATA	095H
+CKCON	DATA	08EH
+RXOVRN	BIT	0F8H.4
+TMR2L	DATA	0CCH
+RTC0ADR	DATA	0ACH
+ACKRQ	BIT	0C0H.3
+TMR3L	DATA	094H
+AD0LJST	BIT	0E8H.2
+RTC0DAT	DATA	0ADH
+sel0	BIT	0A0H.5
+F0	BIT	0D0H.5
+FLSCL	DATA	0B6H
+sel1	BIT	0A0H.6
+AD0CM0	BIT	0E8H.0
+F1	BIT	0D0H.1
+STO	BIT	0C0H.4
+AD0CM1	BIT	0E8H.1
+SPI0DAT	DATA	0A3H
+ADC0	DATA	0BDH
+CSN24L01	BIT	090H.6
+AD0WINT	BIT	0E8H.3
+AD0BUSY	BIT	0E8H.4
+PSW	DATA	0D0H
+CCF0	BIT	0D8H.0
+RB80	BIT	098H.2
+FLKEY	DATA	0B7H
+CCF1	BIT	0D8H.1
+?PR?_sendWord?MBI    SEGMENT CODE INBLOCK 
+?PR?mbiInit?MBI      SEGMENT CODE INBLOCK 
+?DT?mbiInit?MBI      SEGMENT DATA OVERLAYABLE 
+?PR?mbiSend?MBI      SEGMENT CODE INBLOCK 
+?DT?MBI              SEGMENT DATA 
+?DT?mbiSend?MBI      SEGMENT DATA OVERLAYABLE 
+?PR?address?MBI      SEGMENT CODE INBLOCK 
+?DT?address?MBI      SEGMENT DATA OVERLAYABLE 
+?PR?_ptr1?MBI        SEGMENT CODE INBLOCK 
+?PR?_ptr?MBI         SEGMENT CODE INBLOCK 
+?DT?_ptr?MBI         SEGMENT DATA OVERLAYABLE 
+?PR?test?MBI         SEGMENT CODE INBLOCK 
+?DT?test?MBI         SEGMENT DATA OVERLAYABLE 
+?CO?MBI              SEGMENT CODE 
+?XD?MBI              SEGMENT XDATA 
+?XD?mbiSend?MBI      SEGMENT XDATA OVERLAYABLE 
+?PR?MBI              SEGMENT CODE INBLOCK 
+	EXTRN	IDATA (rtc_ram)
+	EXTRN	CODE (?C?ILDIX)
+	EXTRN	CODE (?C?CLDPTR)
+	EXTRN	CODE (?C?SCDIV)
+	PUBLIC	ctrl
+	PUBLIC	complicate
+	PUBLIC	screen
+	PUBLIC	intensity
+	PUBLIC	colors
+	PUBLIC	numbers
+	PUBLIC	cs2
+	PUBLIC	cs1
+	PUBLIC	cc
+	PUBLIC	test
+	PUBLIC	_ptr
+	PUBLIC	_ptr1
+	PUBLIC	address
+	PUBLIC	mbiSend
+	PUBLIC	mbiInit
+
+	RSEG  ?DT?test?MBI
+?test?BYTE:
+     repeat?655:   DS   1
+	ORG  1
+        tst?656:   DS   1
+	ORG  2
+          r?657:   DS   2
+
+	RSEG  ?DT?mbiSend?MBI
+?mbiSend?BYTE:
+          c?243:   DS   1
+	ORG  1
+          d?244:   DS   1
+
+	RSEG  ?DT?mbiInit?MBI
+?mbiInit?BYTE:
+          c?142:   DS   1
+
+	RSEG  ?DT?_ptr?MBI
+?_ptr?BYTE:
+       ball?554:   DS   1
+
+	RSEG  ?DT?address?MBI
+?address?BYTE:
+       chip?347:   DS   2
+	ORG  2
+        col?348:   DS   2
+
+	RSEG  ?DT?MBI
+     column?245:   DS   2
+     complicate:   DS   5
+           ctrl:   DS   2
+
+	RSEG  ?XD?MBI
+         screen:   DS   640
+
+	RSEG  ?XD?mbiSend?MBI
+        tmp?246:   DS   3
+
+	RSEG  ?CO?MBI
+cc:
+	DB	004H
+	DB	004H
+	DB	002H
+	DB	000H
+	DB	000H
+	DB	003H
+	DB	003H
+	DB	002H
+	DB	001H
+	DB	001H
+
+cs1:
+	DB	001H
+	DB	000H
+	DB	00DH
+	DB	00CH
+	DB	00BH
+	DB	003H
+	DB	004H
+	DB	008H
+
+cs2:
+	DB	007H
+	DB	006H
+	DB	005H
+	DB	009H
+	DB	00AH
+	DB	002H
+	DB	00FH
+	DB	00EH
+
+numbers:
+	DB	0FCH
+	DB	060H
+	DB	0DAH
+	DB	0F2H
+	DB	066H
+	DB	0B6H
+	DB	0BEH
+	DB	0E0H
+	DB	0FEH
+	DB	0F6H
+	DB	0FDH
+	DB	000H
+	DB	000H
+	DB	000H
+	DB	000H
+	DB  000H
+
+
+colors:
+	DB	002H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+	DB	003H
+	DB	000H
+
+intensity:
+	DB	05AH
+	DB	05AH
+	DB	0FFH
+	DB	0AAH
+	DB	0AAH
+
+; #include "display_slot.h"
+; #include <intrins.h>
+; 
+; extern unsigned char idata rtc_ram[64];
+; #define BALLS 0
+; 
+; 
+; #ifdef USE_MBI
+; 
+; #define NO_LACH            -1
+; 
+; #define DATA_LACH          1
+; #define GLOBAL_LACH        3
+; #define READ_CONFIGURATION 5
+; #define EABLE_ERRORDETECT  7
+; #define READ_ERRORSTATUS   9
+; #define WRITE_CONFIG       11
+; #define RESET_PWM          13
+; 
+; 
+; 
+; union ctrl {
+;               struct control {
+; 							 unsigned int bt0:1; // 0    -> timeout of gck 0 - diable 1 enable	
+; 					     unsigned int bt1:1; // 0    -> thermal protection 0- disable  1-enble
+; 					     unsigned int bt9:8; // 0xab -> current gain adjustment
+; 					     unsigned int bta:1; // 1    -> pwm data sinhronization 0- auto  1- manual
+; 					     unsigned int btb:1; // 0    -> pwm counter reset 0-disable 1- enable
+; 					     unsigned int btc:1; // 1    -> 0 - 6 bit pwm 1 - 12 bit pwm
+; 					     unsigned int btd:1; // 1    -> reserved bit
+; 					     unsigned int bte:1; // 0    -> thermal eror flag 0 - ok readonly							 
+; 					     unsigned int btf:1; // 0    -> Data loading 0- 15 time + 1 datalach  1- 16 time +1 datalach
+;               } control;
+;              unsigned int i;
+; 					};
+; 					
+; union  ctrl ctrl;
+; // default ctrl 0b0011011010101100 - >	0x36ac	
+; 					
+
+	RSEG  ?PR?MBI
+Com0042:
+L?0067:
+	USING	0
+L?0068:
+	MOV  	A,#LOW (screen)
+	ADD  	A,complicate+01H
+	MOV  	DPL,A
+	MOV  	A,#HIGH (screen)
+	ADDC 	A,complicate
+	MOV  	DPH,A
+	RET  	
+L?0069:
+	USING	0
+	MOV  	DPTR,#tmp?246
+	MOVX 	A,@DPTR
+	MOV  	R3,A
+	INC  	DPTR
+	CLR  	A
+	MOV  	B,#01H
+	LCALL	?C?ILDIX
+	MOV  	R1,B
+	MOV  	R2,A
+L?0070:
+	LCALL	?C?CLDPTR
+	MOV  	R7,#00H
+	MOV  	R6,A
+	RET  	
+L?0072:
+	USING	0
+	RLC  	A
+	SUBB 	A,ACC
+	MOV  	R6,A
+	MOV  	A,#LOW (numbers)
+	ADD  	A,R7
+	MOV  	DPL,A
+	MOV  	A,#HIGH (numbers)
+	ADDC 	A,R6
+	MOV  	DPH,A
+	CLR  	A
+	MOVC 	A,@A+DPTR
+	MOV  	R3,A
+	RET  	
+L?0073:
+	USING	0
+	MOV  	A,R3
+	ADD  	A,ACC
+	MOV  	R3,A
+	INC  	complicate+04H
+	MOV  	A,complicate+04H
+	CLR  	C
+	SUBB 	A,#08H
+	RET  	
+; END OF Com0042
+
+; static void sendWord(unsigned int w,char le)
+
+	RSEG  ?PR?_sendWord?MBI
+_sendWord:
+	USING	0
+			; SOURCE LINE # 40
+;---- Variable 'le?041' assigned to Register 'R5' ----
+;---- Variable 'w?040' assigned to Register 'R6/R7' ----
+; {
+			; SOURCE LINE # 41
+; 	
+;       w=w;
+			; SOURCE LINE # 43
+; 	    le=le;
+			; SOURCE LINE # 44
+; #pragma asm
+; ;	     CLR  mbiLE
+	  ;	     CLR  mbiLE
+; ;	     CLR  Dclk
+	  ;	     CLR  Dclk
+; 	
+	  
+; 	     MOV A,#10H
+	  MOV A,#10H
+; 	     CLR C
+	  CLR C
+; 	     SUBB A,R5
+	  SUBB A,R5
+; 	     XCH  A,R5
+	  XCH  A,R5
+; 	
+	  
+; 		   MOV R4,#8	
+	  MOV R4,#8	
+; 		   MOV A,R6		   ;high byte of w
+	  MOV A,R6		   ;high byte of w
+; LOOP1:
+	  LOOP1:
+; 		   RLC A
+	  RLC A
+; 		   MOV sdi,C
+	  MOV sdi,C
+; 		   SETB Dclk
+	  SETB Dclk
+; 		   DJNZ R5,SETLE1  ;le?
+	  DJNZ R5,SETLE1  ;le?
+; 		   SETB mbiLE
+	  SETB mbiLE
+; SETLE1:	
+	  SETLE1:	
+;        CLR  Dclk
+	  CLR  Dclk
+; 		   DJNZ R4,LOOP1
+	  DJNZ R4,LOOP1
+; 		   
+	  
+; 		   MOV R4,#8
+	  MOV R4,#8
+; 		   MOV A,R7	   ;LOW BYTE OF W
+	  MOV A,R7	   ;LOW BYTE OF W
+; LOOP2:		  
+	  LOOP2:		  
+; 		   RLC A
+	  RLC A
+; 		   MOV  sdi,C
+	  MOV  sdi,C
+; 		   SETB Dclk
+	  SETB Dclk
+; 		   DJNZ R5,SETLE2  ;le?
+	  DJNZ R5,SETLE2  ;le?
+; 		   SETB mbiLE
+	  SETB mbiLE
+; SETLE2:	
+	  SETLE2:	
+;        CLR  Dclk
+	  CLR  Dclk
+; 		   DJNZ R4,LOOP2		   
+	  DJNZ R4,LOOP2		   
+;        CLR  mbiLE
+	  CLR  mbiLE
+; #pragma endasm
+; 
+; }
+			; SOURCE LINE # 80
+	RET  	
+; END OF _sendWord
+
+; 
+; //THIS MBI NOT RECIEVE CONFIG OR I MISTAKE BUT 
+; // IS SET TO 16 + 1 datalach
+; void mbiInit()
+
+	RSEG  ?PR?mbiInit?MBI
+mbiInit:
+	USING	0
+			; SOURCE LINE # 84
+;  {
+			; SOURCE LINE # 85
+; 	 unsigned char c;
+; 	 ctrl.i=0x36ac; // default control
+			; SOURCE LINE # 87
+	MOV  	ctrl,#036H
+	MOV  	ctrl+01H,#0ACH
+;    ctrl.control.btf=1;    
+			; SOURCE LINE # 88
+	ORL  	ctrl,#080H
+; 	 ctrl.control.bt9=0xff;
+			; SOURCE LINE # 89
+	ORL  	ctrl+01H,#0FCH
+	ORL  	ctrl,#03H
+; 	 for (c=0;c<NUM_OF_MBI-1;c++)
+			; SOURCE LINE # 90
+	CLR  	A
+	MOV  	c?142,A
+?C0002:
+; 	  {
+			; SOURCE LINE # 91
+; 			sendWord(ctrl.i,NO_LACH);
+			; SOURCE LINE # 92
+	MOV  	R5,#0FFH
+	MOV  	R7,ctrl+01H
+	MOV  	R6,ctrl
+	LCALL	_sendWord
+; 		}
+			; SOURCE LINE # 93
+	INC  	c?142
+	MOV  	A,c?142
+	CLR  	C
+	SUBB 	A,#07H
+	JC   	?C0002
+?C0003:
+; 	 sendWord(ctrl.i,WRITE_CONFIG);
+			; SOURCE LINE # 94
+	MOV  	R5,#0BH
+	MOV  	R7,ctrl+01H
+	MOV  	R6,ctrl
+	LJMP 	_sendWord
+; END OF mbiInit
+
+;  }
+;  
+;  
+;                                 // YU     YD      G      RD     RU
+; //const unsigned int bright[5] = {0x2500,0x2500,0xcfff,0x1800,0x1800};
+; //const unsigned int bright[5] = {0xe000,0xe000,0x1000,0x0500,0x0500};
+; unsigned char xdata screen[NUM_OF_MBI*NUM_OF_COLUMNS*16];
+; 
+; void mbiSend()
+
+	RSEG  ?PR?mbiSend?MBI
+mbiSend:
+	USING	0
+			; SOURCE LINE # 103
+;  {
+			; SOURCE LINE # 104
+; 	 unsigned char c,d;
+; 	 static column;
+; //	 unsigned int dat;
+;    unsigned char *(xdata tmp);
+; //   dat=bright[column]; 
+; 	 tmp=&screen[column*NUM_OF_MBI*16];
+			; SOURCE LINE # 110
+	MOV  	A,column?245+01H
+	MOV  	R6,column?245
+	MOV  	R0,#07H
+?C0053:
+	CLR  	C
+	RLC  	A
+	XCH  	A,R6
+	RLC  	A
+	XCH  	A,R6
+	DJNZ 	R0,?C0053
+	ADD  	A,#LOW (screen)
+	MOV  	R1,A
+	MOV  	A,#HIGH (screen)
+	ADDC 	A,R6
+	MOV  	R2,A
+	MOV  	DPTR,#tmp?246
+	MOV  	A,#01H
+	MOVX 	@DPTR,A
+	INC  	DPTR
+	MOV  	A,R2
+	MOVX 	@DPTR,A
+	INC  	DPTR
+	MOV  	A,R1
+	MOVX 	@DPTR,A
+; 	 for (d=16;d!=0;d--)
+			; SOURCE LINE # 111
+	MOV  	d?244,#010H
+?C0006:
+; 	  {
+			; SOURCE LINE # 112
+; 	   for (c=NUM_OF_MBI-1;c!=0;c--)
+			; SOURCE LINE # 113
+	MOV  	c?243,#07H
+?C0009:
+; 			  sendWord(((int) *tmp++)*0x100,NO_LACH);
+			; SOURCE LINE # 114
+	LCALL	L?0069
+	MOV  	R5,#0FFH
+	LCALL	_sendWord
+	DJNZ 	c?243,?C0009
+?C0010:
+; 		 sendWord(((int) *tmp++)*0x100,DATA_LACH);
+			; SOURCE LINE # 115
+	LCALL	L?0069
+	MOV  	R5,#01H
+	LCALL	_sendWord
+; 		}
+			; SOURCE LINE # 116
+	DJNZ 	d?244,?C0006
+?C0007:
+; 	 CNT=0;
+			; SOURCE LINE # 117
+	CLR  	sel0
+; 	 _nop_();
+			; SOURCE LINE # 118
+	NOP  	
+; 	 _nop_();
+			; SOURCE LINE # 119
+	NOP  	
+; 	 CNT=1;
+			; SOURCE LINE # 120
+	SETB 	sel0
+;    _nop_();
+			; SOURCE LINE # 121
+	NOP  	
+; 	 _nop_();
+			; SOURCE LINE # 122
+	NOP  	
+; 	 CNT=0;
+			; SOURCE LINE # 123
+	CLR  	sel0
+; 	 sendWord(((int) (*tmp))*0x100,GLOBAL_LACH);
+			; SOURCE LINE # 124
+	MOV  	DPTR,#tmp?246
+	MOVX 	A,@DPTR
+	MOV  	R3,A
+	INC  	DPTR
+	MOVX 	A,@DPTR
+	MOV  	R2,A
+	INC  	DPTR
+	MOVX 	A,@DPTR
+	MOV  	R1,A
+	LCALL	L?0070
+	MOV  	R5,#03H
+	LCALL	_sendWord
+; 	 _nop_();
+			; SOURCE LINE # 125
+	NOP  	
+; 	 _nop_();
+			; SOURCE LINE # 126
+	NOP  	
+; 	 CNT=1;
+			; SOURCE LINE # 127
+	SETB 	sel0
+; 	 _nop_();
+			; SOURCE LINE # 128
+	NOP  	
+; 	 _nop_();
+			; SOURCE LINE # 129
+	NOP  	
+; 	 CNT=0;
+			; SOURCE LINE # 130
+	CLR  	sel0
+; 	 if (column==4) 
+			; SOURCE LINE # 131
+	MOV  	A,column?245+01H
+	XRL  	A,#04H
+	ORL  	A,column?245
+	JNZ  	?C0012
+; 				{
+			; SOURCE LINE # 132
+; 					column=0;
+			; SOURCE LINE # 133
+	MOV  	column?245,A
+	MOV  	column?245+01H,A
+; 					RST=1;
+			; SOURCE LINE # 134
+	SETB 	sel1
+; 					_nop_();
+			; SOURCE LINE # 135
+	NOP  	
+; 					_nop_();
+			; SOURCE LINE # 136
+	NOP  	
+; 					_nop_();
+			; SOURCE LINE # 137
+	NOP  	
+; 					column=0;
+			; SOURCE LINE # 138
+	MOV  	column?245,A
+	MOV  	column?245+01H,A
+; 					RST=0;
+			; SOURCE LINE # 139
+	CLR  	sel1
+; 				}
+			; SOURCE LINE # 140
+	RET  	
+?C0012:
+;    else
+; 	  column++;				
+			; SOURCE LINE # 142
+	INC  	column?245+01H
+	MOV  	A,column?245+01H
+	JNZ  	?C0054
+	INC  	column?245
+?C0054:
+;  }
+			; SOURCE LINE # 143
+?C0014:
+	RET  	
+; END OF mbiSend
+
+;  
+; const unsigned char code cc[10]={4,4,2,0,0,3,3,2,1,1};
+;                          //  a1 b1 c1 d1 e1 f1 g1 dd1
+; const unsigned char code cs1[8]={ 1, 0,13,12,11, 3, 4, 8};    
+;                         //  a2 b2 c2 d2 e2 f2 g2 dd2 
+; const unsigned char code cs2[8]={ 7,  6, 5, 9,10, 2,15,14};
+; //screen[NUM_OF_MBI*(16 * 4 /* col 1 */ + 0 /*seg 0*/) + 7 /* chip 7*/];
+; 
+; struct caddr {
+;                 unsigned int address;
+; 								unsigned char column;
+; 								unsigned char row;
+; 								unsigned char segment;
+; 							} complicate;
+; void address()
+
+	RSEG  ?PR?address?MBI
+address:
+	USING	0
+			; SOURCE LINE # 158
+;---- Variable 'seg?349' assigned to Register 'R4/R5' ----
+;  {
+			; SOURCE LINE # 159
+;    unsigned int chip,col,seg;
+; 						   
+;    chip = complicate.row/2;
+			; SOURCE LINE # 162
+	MOV  	A,complicate+03H
+	CLR  	C
+	RRC  	A
+	MOV  	chip?347,#00H
+	MOV  	chip?347+01H,A
+;    col=cc[complicate.column+5*(complicate.row&1)];
+			; SOURCE LINE # 163
+	MOV  	A,complicate+03H
+	ANL  	A,#01H
+	MOV  	B,#05H
+	MUL  	AB
+	ADD  	A,complicate+02H
+	MOV  	DPL,A
+	CLR  	A
+	ADDC 	A,B
+	MOV  	DPH,A
+	MOV  	A,DPL
+	ADD  	A,#LOW (cc)
+	MOV  	DPL,A
+	MOV  	A,DPH
+	ADDC 	A,#HIGH (cc)
+	MOV  	DPH,A
+	CLR  	A
+	MOVC 	A,@A+DPTR
+	MOV  	col?348,#00H
+	MOV  	col?348+01H,A
+; 	 switch (complicate.column)
+			; SOURCE LINE # 164
+	MOV  	A,complicate+02H
+	DEC  	A
+	JZ   	?C0017
+	DEC  	A
+	JZ   	?C0018
+	DEC  	A
+	JZ   	?C0021
+	DEC  	A
+	JZ   	?C0017
+	ADD  	A,#04H
+	JNZ  	?C0015
+; 	  {
+			; SOURCE LINE # 165
+; 			case 0:
+			; SOURCE LINE # 166
+?C0016:
+; 				seg=cs1[complicate.segment];
+			; SOURCE LINE # 167
+; 			break;
+			; SOURCE LINE # 168
+	SJMP 	?C0059
+; 			case 1:
+			; SOURCE LINE # 169
+?C0017:
+; 				seg=cs2[complicate.segment];
+			; SOURCE LINE # 170
+; 			break;
+			; SOURCE LINE # 171
+	SJMP 	?C0060
+; 			case 2:
+			; SOURCE LINE # 172
+?C0018:
+; 	       if (complicate.row&1)
+			; SOURCE LINE # 173
+	MOV  	A,complicate+03H
+	JNB  	ACC.0,?C0019
+; 	        seg=cs2[complicate.segment];
+			; SOURCE LINE # 174
+	MOV  	A,complicate+04H
+	MOV  	DPTR,#cs2
+	SJMP 	?C0062
+?C0019:
+; 	       else
+; 	        seg=cs1[complicate.segment];
+			; SOURCE LINE # 176
+	MOV  	A,complicate+04H
+	MOV  	DPTR,#cs1
+?C0058:
+; 			break;
+			; SOURCE LINE # 177
+	SJMP 	?C0062
+; 			case 3:
+			; SOURCE LINE # 178
+?C0021:
+; 				seg=cs1[complicate.segment];
+			; SOURCE LINE # 179
+?C0059:
+	MOV  	A,complicate+04H
+	MOV  	DPTR,#cs1
+?C0061:
+; 			break;
+			; SOURCE LINE # 180
+	SJMP 	?C0062
+; 			case 4:
+			; SOURCE LINE # 181
+?C0060:
+	MOV  	A,complicate+04H
+	MOV  	DPTR,#cs2
+?C0062:
+	MOVC 	A,@A+DPTR
+	MOV  	R4,#00H
+	MOV  	R5,A
+; 				seg=cs2[complicate.segment];
+; 			break;
+			; SOURCE LINE # 183
+; 		}
+			; SOURCE LINE # 184
+?C0015:
+;    complicate.address=NUM_OF_MBI*(16*col+seg)+chip;
+			; SOURCE LINE # 185
+	MOV  	A,col?348+01H
+	SWAP 	A
+	MOV  	R0,A
+	ANL  	A,#0FH
+	XCH  	A,R0
+	XRL  	A,R0
+	MOV  	R7,A
+	MOV  	A,col?348
+	SWAP 	A
+	ANL  	A,#0F0H
+	ORL  	A,R0
+	MOV  	R6,A
+	MOV  	A,R7
+	ADD  	A,R5
+	MOV  	R7,A
+	MOV  	A,R6
+	ADDC 	A,R4
+	MOV  	R6,A
+	MOV  	A,R7
+	MOV  	R0,#03H
+?C0055:
+	CLR  	C
+	RLC  	A
+	XCH  	A,R6
+	RLC  	A
+	XCH  	A,R6
+	DJNZ 	R0,?C0055
+	ADD  	A,chip?347+01H
+	MOV  	complicate+01H,A
+	MOV  	A,chip?347
+	ADDC 	A,R6
+	MOV  	complicate,A
+; }
+			; SOURCE LINE # 186
+	RET  	
+; END OF address
+
+;  
+; 
+;  
+; const unsigned char code numbers[16]= {0xfc,0x60,0xda,0xf2,0x66,0xb6,0xbe,0xe0,0xfe,0xf6,0xfd,0,0,0,0};
+; 
+; 
+; void ptr1(char c,unsigned char k)
+
+	RSEG  ?PR?_ptr1?MBI
+_ptr1:
+	USING	0
+			; SOURCE LINE # 193
+;---- Variable 'd?452' assigned to Register 'R3' ----
+;---- Variable 'c?450' assigned to Register 'R2' ----
+	MOV  	R2,AR7
+;---- Variable 'k?451' assigned to Register 'R1' ----
+	MOV  	R1,AR5
+;  {
+			; SOURCE LINE # 194
+; 	  unsigned char d;
+; 	  if (c>=10)
+			; SOURCE LINE # 196
+	CLR  	C
+	MOV  	A,R2
+	XRL  	A,#080H
+	SUBB 	A,#08AH
+	MOV  	A,R2
+	JC   	?C0024
+; 	   d = numbers[c/10];
+			; SOURCE LINE # 197
+	MOV  	B,#0AH
+	LCALL	?C?SCDIV
+	SJMP 	?C0063
+?C0024:
+; 		else
+; 		 d = numbers[c];
+			; SOURCE LINE # 199
+?C0063:
+	MOV  	R7,A
+	LCALL	L?0072
+?C0025:
+; 
+; 	  for (complicate.segment=0;complicate.segment<8;complicate.segment++)
+			; SOURCE LINE # 201
+	CLR  	A
+	MOV  	complicate+04H,A
+?C0026:
+; 	   {			 
+			; SOURCE LINE # 202
+;  			 address();
+			; SOURCE LINE # 203
+	LCALL	address
+; 			 if ((d&0x80)!=0)
+			; SOURCE LINE # 204
+	MOV  	A,R3
+	JNB  	ACC.7,?C0029
+; 				 screen[complicate.address]=k;
+			; SOURCE LINE # 205
+	LCALL	L?0067
+	MOV  	A,R1
+	MOVX 	@DPTR,A
+	SJMP 	?C0030
+?C0029:
+; 			 else
+; 				 screen[complicate.address]=0;
+			; SOURCE LINE # 207
+	LCALL	L?0067
+	CLR  	A
+	MOVX 	@DPTR,A
+?C0030:
+; 			 d<<=1;
+			; SOURCE LINE # 208
+; 	   }
+			; SOURCE LINE # 209
+	LCALL	L?0073
+	JC   	?C0026
+?C0027:
+; 		 complicate.column++;
+			; SOURCE LINE # 210
+	INC  	complicate+02H
+; 		 if (c<10)
+			; SOURCE LINE # 211
+	CLR  	C
+	MOV  	A,R2
+	XRL  	A,#080H
+	SUBB 	A,#08AH
+	JC   	?C0032
+?C0031:
+; 			 return;	   
+; 		 d = numbers[c%10];
+			; SOURCE LINE # 213
+	MOV  	A,R2
+	MOV  	B,#0AH
+	LCALL	?C?SCDIV
+	MOV  	R7,B
+	MOV  	A,R7
+	LCALL	L?0072
+; 	  for (complicate.segment=0;complicate.segment<8;complicate.segment++)
+			; SOURCE LINE # 214
+	CLR  	A
+	MOV  	complicate+04H,A
+?C0033:
+; 	   {			 
+			; SOURCE LINE # 215
+;  			 address();
+			; SOURCE LINE # 216
+	LCALL	address
+; 			 if ((d&0x80)!=0)
+			; SOURCE LINE # 217
+	MOV  	A,R3
+	JNB  	ACC.7,?C0036
+; 				 screen[complicate.address]=k;
+			; SOURCE LINE # 218
+	LCALL	L?0068
+	MOV  	A,R1
+	MOVX 	@DPTR,A
+	SJMP 	?C0037
+?C0036:
+; 			 else
+; 				 screen[complicate.address]=0;
+			; SOURCE LINE # 220
+	LCALL	L?0068
+	CLR  	A
+	MOVX 	@DPTR,A
+?C0037:
+; 			 d<<=1;
+			; SOURCE LINE # 221
+; 	   }		 
+			; SOURCE LINE # 222
+	LCALL	L?0073
+	JC   	?C0033
+; 		 return;
+;  }                         //0 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+			; SOURCE LINE # 224
+?C0032:
+	RET  	
+; END OF _ptr1
+
+;  const char code colors[37]={2,0 ,3 ,0 ,3 ,0 ,3 ,0 , 3, 0 ,3 ,3 ,0 ,3 ,0 ,3 ,0 ,3 ,0 , 0,3 ,0 ,3 ,0 , 3,0 ,3 ,0 , 3,3 ,0 ,3 ,0 , 3,0 ,3 ,0}; 
+; 	#define GCOLOR 255
+; 	#define RCOLOR 90
+; 	#define YCOLOR 170
+; 	const char code intensity[]={RCOLOR,RCOLOR,GCOLOR,YCOLOR,YCOLOR}; 
+; 	
+;  void ptr(char c)
+
+	RSEG  ?PR?_ptr?MBI
+_ptr:
+	USING	0
+			; SOURCE LINE # 231
+;---- Variable 'c?553' assigned to Register 'R7' ----
+;  {
+			; SOURCE LINE # 232
+; 	    char ball;
+; 	    ball=rtc_ram[BALLS+c];
+			; SOURCE LINE # 234
+	MOV  	A,#LOW (rtc_ram)
+	ADD  	A,R7
+	MOV  	R0,A
+	MOV  	A,@R0
+	MOV  	ball?554,A
+; 	 
+; 	    complicate.row=c;		
+			; SOURCE LINE # 236
+	MOV  	complicate+03H,R7
+; 			complicate.column=0;		
+			; SOURCE LINE # 237
+	CLR  	A
+	MOV  	complicate+02H,A
+; 			ptr1(0,0);
+			; SOURCE LINE # 238
+	MOV  	R5,A
+	MOV  	R7,A
+	LCALL	_ptr1
+; 			ptr1(0,0);
+			; SOURCE LINE # 239
+; 			ptr1(0,0);
+			; SOURCE LINE # 240
+	LCALL	L?0071
+; 			ptr1(0,0);
+			; SOURCE LINE # 241
+; 			ptr1(0,0);	
+			; SOURCE LINE # 242
+	LCALL	L?0071
+;      	if (ball == -1)
+			; SOURCE LINE # 243
+	MOV  	A,ball?554
+	CPL  	A
+	JZ   	?C0039
+?C0038:
+;        return ;					
+;      complicate.column=colors[ball];
+			; SOURCE LINE # 245
+	MOV  	R7,ball?554
+	MOV  	A,R7
+	RLC  	A
+	SUBB 	A,ACC
+	MOV  	R6,A
+	MOV  	A,#LOW (colors)
+	ADD  	A,R7
+	MOV  	DPL,A
+	MOV  	A,#HIGH (colors)
+	ADDC 	A,R6
+	MOV  	DPH,A
+	CLR  	A
+	MOVC 	A,@A+DPTR
+	MOV  	complicate+02H,A
+; 		  ptr1(ball,intensity[complicate.column]);
+			; SOURCE LINE # 246
+	MOV  	DPTR,#intensity
+	MOVC 	A,@A+DPTR
+	MOV  	R5,A
+	LCALL	_ptr1
+; 			 	 
+; 	  return ;
+;  }
+			; SOURCE LINE # 249
+?C0039:
+	RET  	
+L?0071:
+	CLR  	A
+	MOV  	R5,A
+	MOV  	R7,A
+	LCALL	_ptr1
+	CLR  	A
+	MOV  	R5,A
+	MOV  	R7,A
+	LCALL	_ptr1
+	RET  	
+; END OF _ptr
+
+; 
+; void test()
+
+	RSEG  ?PR?test?MBI
+test:
+	USING	0
+			; SOURCE LINE # 251
+;  {
+			; SOURCE LINE # 252
+; 	 unsigned char repeat,tst;
+; 	 unsigned int r;
+; 	 for (repeat=0;repeat<120;repeat++)
+			; SOURCE LINE # 255
+	CLR  	A
+	MOV  	repeat?655,A
+?C0040:
+; 	 {
+			; SOURCE LINE # 256
+; 	   for (r=NUM_OF_MBI*NUM_OF_COLUMNS;r;)
+			; SOURCE LINE # 257
+	MOV  	r?657,#00H
+	MOV  	r?657+01H,#028H
+?C0043:
+	MOV  	A,r?657+01H
+	ORL  	A,r?657
+	JZ   	?C0044
+; 	    {
+			; SOURCE LINE # 258
+; 				--r;
+			; SOURCE LINE # 259
+	MOV  	A,r?657+01H
+	DEC  	r?657+01H
+	JNZ  	?C0056
+	DEC  	r?657
+?C0056:
+; 				complicate.row=r;
+			; SOURCE LINE # 260
+	MOV  	complicate+03H,r?657+01H
+; 	      complicate.column=0;
+			; SOURCE LINE # 261
+	CLR  	A
+	MOV  	complicate+02H,A
+; 	      ptr1(tst%10,intensity[complicate.column]);
+			; SOURCE LINE # 262
+	LCALL	L?0064
+; 	      complicate.column=1;
+			; SOURCE LINE # 263
+	MOV  	complicate+02H,#01H
+; 	      ptr1(tst%10,intensity[complicate.column]);
+			; SOURCE LINE # 264
+	LCALL	L?0064
+; 	      complicate.column=2;
+			; SOURCE LINE # 265
+	MOV  	complicate+02H,#02H
+; 	      ptr1(tst%10,intensity[complicate.column]);
+			; SOURCE LINE # 266
+	LCALL	L?0065
+; 	      complicate.column=3;
+			; SOURCE LINE # 267
+	MOV  	complicate+02H,#03H
+; 	      ptr1(tst%10,intensity[complicate.column]);
+			; SOURCE LINE # 268
+	LCALL	L?0065
+; 	      complicate.column=4;
+			; SOURCE LINE # 269
+	MOV  	complicate+02H,#04H
+; 	      ptr1(tst%10,intensity[complicate.column]);
+			; SOURCE LINE # 270
+	MOV  	A,tst?656
+	MOV  	B,#0AH
+	DIV  	AB
+	MOV  	R7,B
+	MOV  	A,complicate+02H
+	MOV  	DPTR,#intensity
+	MOVC 	A,@A+DPTR
+	MOV  	R5,A
+	LCALL	_ptr1
+; 		  }
+			; SOURCE LINE # 271
+	SJMP 	?C0043
+?C0044:
+; 		for (r=0;r<800;r++)
+			; SOURCE LINE # 272
+	CLR  	A
+	MOV  	r?657,A
+	MOV  	r?657+01H,A
+?C0045:
+; 		{
+			; SOURCE LINE # 273
+; 		  WATCHDOG;
+			; SOURCE LINE # 274
+	CLR  	A
+	MOV  	PCA0CPH5,A
+?C0048:
+; 		  while (!TF2H); //800HZ refresh rate
+			; SOURCE LINE # 275
+	JNB  	TF2H,?C0048
+?C0049:
+; 		  TF2H=0;
+			; SOURCE LINE # 276
+	CLR  	TF2H
+; 		  mbiSend();
+			; SOURCE LINE # 277
+	LCALL	mbiSend
+; 		}
+			; SOURCE LINE # 278
+	INC  	r?657+01H
+	MOV  	A,r?657+01H
+	JNZ  	?C0057
+	INC  	r?657
+?C0057:
+	CLR  	C
+	SUBB 	A,#020H
+	MOV  	A,r?657
+	SUBB 	A,#03H
+	JC   	?C0045
+?C0046:
+; 		tst++;
+			; SOURCE LINE # 279
+	INC  	tst?656
+; 	}
+			; SOURCE LINE # 280
+	INC  	repeat?655
+	MOV  	A,repeat?655
+	CLR  	C
+	SUBB 	A,#078H
+	JC   	?C0040
+?C0050:
+; 	 while(1);
+			; SOURCE LINE # 281
+	SJMP 	?C0050
+;  }	 
+			; SOURCE LINE # 282
+L?0064:
+	MOV  	A,tst?656
+	MOV  	B,#0AH
+	DIV  	AB
+	MOV  	R7,B
+	MOV  	A,complicate+02H
+	MOV  	DPTR,#intensity
+	MOVC 	A,@A+DPTR
+	MOV  	R5,A
+	LCALL	_ptr1
+	RET  	
+L?0065:
+	MOV  	A,tst?656
+	MOV  	B,#0AH
+	DIV  	AB
+	MOV  	R7,B
+	MOV  	A,complicate+02H
+	MOV  	DPTR,#intensity
+	MOVC 	A,@A+DPTR
+	MOV  	R5,A
+	LCALL	_ptr1
+	RET  	
+; END OF test
+
+	END

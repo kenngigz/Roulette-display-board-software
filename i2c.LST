@@ -1,0 +1,404 @@
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 1   
+
+
+C51 COMPILER V9.51, COMPILATION OF MODULE I2C
+OBJECT MODULE PLACED IN i2c.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE i2c.c ROM(COMPACT) OPTIMIZE(9,SPEED) REGFILE(.\DisplayRoulette.ORC) BROWSE 
+                    -DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          #include "display_slot.h"
+   2          #include <intrins.h>
+   3          #include <ctype.h>
+   4          #define KEYADDR 0x70
+   5          
+   6          
+   7          #define LONG_P_TIME 80
+   8          #define BLINKL   28
+   9          #define BLINKS   1
+  10          #define BLINKK   5
+  11          #define TIMEOUT 80
+  12          #define ROW 0xe8
+  13          
+  14          extern unsigned char idata rtc_ram[64];
+  15          #define BALLS 0
+  16          
+  17          unsigned char tim;
+  18          unsigned char pressed;
+  19          unsigned char key;
+  20          unsigned char LongPress;
+  21          const unsigned char code keytab[12]={'1','2','3','4','5','6','7','8','9','*','0','#'};
+  22          unsigned char blinks=BLINKS;
+  23          unsigned char blinkl=BLINKL;
+  24          int ball;
+  25          unsigned int timeout;
+  26          
+  27          static unsigned char testpos;
+  28          extern unsigned char xdata screen[];
+  29          
+  30          union pcf {
+  31                      struct r 
+  32                        {
+  33                          unsigned char col:3;
+  34                          unsigned char row0:1;
+  35                          unsigned char led:1;
+  36                          unsigned char row3:1;
+  37                          unsigned char row2:1;
+  38                          unsigned char row1:1;
+  39                        } r;            
+  40                        unsigned char c;            
+  41                      };
+  42          
+  43          #ifdef USE_NRF24
+              uint8_t data_array[4];
+              void    nrf24_send(uint8_t* value);
+              void    nrf24_getData(uint8_t* dat);
+              void    test(); //test the LED screen return with reset
+              bit send_start;
+              #endif      
+  50                      
+  51          unsigned char ReadI2C(unsigned char address,char *dat,char num)
+  52          {
+  53   1                  STO = 0; // stop condition bit must be zero
+  54   1                  STA = 1; // manually clear STA
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 2   
+
+  55   1                  while (!SI); // wait for start to complete          
+  56   1                  SMB0DAT = address  | 1; // A6..A0 + read
+  57   1                  STA = 0; // manually clear STA
+  58   1                  SI = 0; // continue
+  59   1                  while (!SI); // wait for completion
+  60   1                  if (!ACK) // if not acknowledged, stop
+  61   1                   {
+  62   2                    STO = 1; // stop condition bit
+  63   2                    SI = 0; // generate stop condition
+  64   2                    return 0; //return error
+  65   2                   }
+  66   1                   
+  67   1                  while (num--)
+  68   1                  {
+  69   2                    
+  70   2                    SI = 0; // continue
+  71   2                    while (!SI); // wait for completion
+  72   2                    *dat=SMB0DAT;
+  73   2                    ACK = (num!=0); // NACK, last byte
+  74   2                    dat++;
+  75   2                //    ACK = (num!=0); // NACK, last byte
+  76   2                  }
+  77   1                 STO = 1; // stop condition bit
+  78   1                 SI = 0; // generate stop condition
+  79   1                 return 1; //success
+  80   1      }
+  81          #ifdef I2CKEY
+  82          
+  83          union pcf kbd;
+  84          
+  85          char write_kbd()
+  86          {
+  87   1           kbd.c|=ROW;
+  88   1           STO=0; 
+  89   1           STA=1;            //generate start
+  90   1           while(!SI);
+  91   1           SMB0DAT=KEYADDR;   //Write to keyboard
+  92   1       
+  93   1           STA=0;
+  94   1           SI=0;
+  95   1           while(!SI);
+  96   1      
+  97   1          if (!ACK) // if not acknowledged, stop
+  98   1            {
+  99   2              STO = 1;    // stop condition bit
+ 100   2              SI = 0;    // generate stop condition
+ 101   2              return 0;  //No ACK
+ 102   2            }
+ 103   1        
+ 104   1           SMB0DAT=kbd.c;   
+ 105   1           SI=0;
+ 106   1      
+ 107   1          while(!SI);
+ 108   1          STO=1;
+ 109   1          SI=0;
+ 110   1          while(STO);  
+ 111   1          return 1;
+ 112   1      }
+ 113          
+ 114          
+ 115          #endif
+ 116          void init_i2c()
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 3   
+
+ 117           {
+ 118   1            TR0=1; //start timer0 for the I2C
+ 119   1         
+ 120   1      #ifdef I2CKEY
+ 121   1           kbd.c|=ROW;
+ 122   1           kbd.r.col=0;      //select all colums
+ 123   1           kbd.r.led=0;
+ 124   1           write_kbd();
+ 125   1      #endif      
+ 126   1       }
+ 127           
+ 128           
+ 129          char KbdSetup()
+ 130          {
+ 131   1        // initialize i2c interface
+ 132   1        tim=BLINKS;
+ 133   1        pressed=0;
+ 134   1        kbd.c|=ROW;
+ 135   1        kbd.r.col=0;  //select all colums
+ 136   1        kbd.r.led=1;
+ 137   1        ball=-1;
+ 138   1        return write_kbd();
+ 139   1      }
+ 140          
+ 141          void addBall(char b)
+ 142          {
+ 143   1        char d;
+ 144   1        for (d=15;d>0;d--)
+ 145   1         rtc_ram[BALLS+d]= rtc_ram[BALLS+d-1];
+ 146   1        rtc_ram[BALLS]=b;
+ 147   1        rtc_writeram();
+ 148   1        #ifdef USE_NRF24
+                 data_array[0] = 0x00;
+                 data_array[1] = 0xAA;
+                 data_array[2] = b;
+                 data_array[3] = -b;
+                 nrf24_send(data_array);  
+                 send_start=1;
+                #endif
+ 156   1      }
+ 157          
+ 158          void delBall()
+ 159          {
+ 160   1        char d;
+ 161   1        for (d=1;d&0xf;d++)
+ 162   1         rtc_ram[BALLS+d-1]= rtc_ram[BALLS+d];
+ 163   1        rtc_ram[BALLS+15]=-1;
+ 164   1        rtc_writeram();
+ 165   1      }
+ 166          
+ 167          char KbdLoop()
+ 168          {
+ 169   1         char hlp;
+ 170   1         
+ 171   1         if (ReadI2C(KEYADDR,&kbd.c,1)==0)
+ 172   1           return 0;
+ 173   1       
+ 174   1         if ((kbd.c&ROW)!=ROW) //key pressed
+ 175   1            {
+ 176   2             if (!pressed)
+ 177   2              { 
+ 178   3                pressed=3;  //the time for realase prevent from double press
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 4   
+
+ 179   3                LongPress=LONG_P_TIME;
+ 180   3                hlp=9; //row 3 default value
+ 181   3                if (!kbd.r.row0) hlp=0;
+ 182   3                if (!kbd.r.row1) hlp=3;
+ 183   3                if (!kbd.r.row2) hlp=6;
+ 184   3                // not nessery to check for row 3
+ 185   3                kbd.c|=ROW;
+ 186   3                kbd.r.col=5;    //select second column
+ 187   3                if (write_kbd()==0)
+ 188   3                  return 0;
+ 189   3                if (ReadI2C(KEYADDR,&kbd.c,1)==0)
+ 190   3                  return 0;
+ 191   3               if ((kbd.c&ROW)==ROW) 
+ 192   3                { // not the second column 
+ 193   4                  // check the third one
+ 194   4                   kbd.r.col=3;
+ 195   4                   if (write_kbd()==0)
+ 196   4                     return 0;
+ 197   4                   if (ReadI2C(KEYADDR,&kbd.c,1)==0)
+ 198   4                    return 0;
+ 199   4                   if ((kbd.c&ROW)!=ROW)   
+ 200   4                    hlp+=2;    //Third columno if not the default is first column          
+ 201   4                }
+ 202   3               else
+ 203   3                hlp+=1;
+ 204   3               //now in hlp we have the number of the key
+ 205   3               
+ 206   3               key=keytab[hlp]; // get the right key ASCII
+ 207   3               kbd.r.led=0; //switch led on
+ 208   3               tim=BLINKK;
+ 209   3               if (ball<0)
+ 210   3                {
+ 211   4                  switch (ball) 
+ 212   4                  {
+ 213   5                     case -1:
+ 214   5                      if (isdigit(key)) //first digit
+ 215   5                      {
+ 216   6                        ball=key-'0';
+ 217   6                        if ( (ball==0) || (ball>3) ) //one digit ball
+ 218   6                         {
+ 219   7                         // Serial.print("Valide ball:");
+ 220   7                         // Serial.println(ball);
+ 221   7                          addBall(ball);
+ 222   7                          ball=-1;
+ 223   7                         }
+ 224   6                      }
+ 225   5                      else
+ 226   5                       if (key=='*') //delete ball
+ 227   5                         ball=-2;
+ 228   5                     break;
+ 229   5                    case -2:            
+ 230   5                      if (key=='#')
+ 231   5                       {
+ 232   6                      //delete ball
+ 233   6                          ball=-1;
+ 234   6                          delBall();
+ 235   6                       }
+ 236   5                     break;
+ 237   5                    case -3: //setup
+ 238   5                     switch (key)
+ 239   5                      {
+ 240   6                         case '1':
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 5   
+
+ 241   6                        //  Serial.println("Switch on/off display");
+ 242   6                         break;
+ 243   6      
+ 244   6                              
+ 245   6                         case '2':
+ 246   6                         //  Serial.println("Clear balls");
+ 247   6                            hlp=16;
+ 248   6                            do {
+ 249   7                              rtc_ram[BALLS-1+hlp]=-1;
+ 250   7                            } while (--hlp);
+ 251   6                          break;
+ 252   6      
+ 253   6                         case '3':
+ 254   6                         // Serial.println("test");
+ 255   6                          test();
+*** WARNING C206 IN LINE 255 OF i2c.c: 'test': missing function-prototype
+ 256   6                         break; 
+ 257   6      
+ 258   6                         case '4':
+ 259   6                         // Serial.println("Switch up/down");
+ 260   6                         break;
+ 261   6      
+ 262   6                         case '5':
+ 263   6                         // Serial.println("Set brightnes");
+ 264   6                         break;
+ 265   6      
+ 266   6                         default:
+ 267   6                          ball=-1;
+ 268   6                      }
+ 269   5                     ball=-1;
+ 270   5                    break;
+ 271   5                  }
+ 272   4            
+ 273   4                 timeout=TIMEOUT;
+ 274   4                }
+ 275   3               else 
+ 276   3                {
+ 277   4                  if (isdigit(key)) //second digit
+ 278   4                   {
+ 279   5                    ball*=10;
+ 280   5                    ball+=key-'0';
+ 281   5                    if (ball<37) 
+ 282   5                     {
+ 283   6                       addBall(ball);
+ 284   6       
+ 285   6                     }
+ 286   5                     ball=-1;
+ 287   5                   }
+ 288   4                  else
+ 289   4                  {
+ 290   5                    if (key=='#')
+ 291   5                       {
+ 292   6                          addBall(ball);
+ 293   6                                  
+ 294   6                       }
+ 295   5                     ball=-1;
+ 296   5                  }
+ 297   4                }
+ 298   3        
+ 299   3              }   //First press
+ 300   2             else
+ 301   2              {   //the key is hold down
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 6   
+
+ 302   3                 pressed=3;
+ 303   3                 if (LongPress!=0)
+ 304   3                  {
+ 305   4                    LongPress--;          
+ 306   4                    if (LongPress==0)
+ 307   4                     {
+ 308   5      
+ 309   5                       if (key=='#') //setup mode
+ 310   5                        {
+ 311   6                          ball=-3;
+ 312   6                          timeout=TIMEOUT; 
+ 313   6                          //setup mode
+ 314   6                       
+ 315   6                        }
+ 316   5                       else
+ 317   5                        ball=-1; 
+ 318   5                     }
+ 319   4                  }
+ 320   3              }
+ 321   2            }
+ 322   1          else
+ 323   1           {
+ 324   2             if (pressed)
+ 325   2              {
+ 326   3                pressed--;
+ 327   3                //if pressed = 0 releaset
+ 328   3                
+ 329   3              }
+ 330   2           }
+ 331   1               
+ 332   1         kbd.r.col=0;
+ 333   1         kbd.c|=ROW;
+ 334   1         if (tim--==0)   
+ 335   1         {
+ 336   2           if (ball<0)
+ 337   2            {
+ 338   3             switch (ball)
+ 339   3              {
+ 340   4                 case -2:
+ 341   4                  tim=kbd.r.led?blinkl:blinks;
+ 342   4                 break;
+ 343   4                 case -3:
+ 344   4                   tim=blinkl;
+ 345   4                 break;
+ 346   4                 default:
+ 347   4                 tim=kbd.r.led?blinks:blinkl;
+ 348   4                 break;
+ 349   4              
+ 350   4              }
+ 351   3            }
+ 352   2           else
+ 353   2            {
+ 354   3             tim=blinks;
+ 355   3            }
+ 356   2           if (timeout!=0)
+ 357   2              {
+ 358   3                if (--timeout==0)
+ 359   3                 ball=-1; 
+ 360   3              }
+ 361   2            
+ 362   2           kbd.r.led=!kbd.r.led;
+ 363   2         }
+C51 COMPILER V9.51   I2C                                                                   10/04/2018 18:56:21 PAGE 7   
+
+ 364   1         if (write_kbd()==0)
+ 365   1                  return 0;
+ 366   1         return 1;
+ 367   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    789    ----
+   CONSTANT SIZE    =     12    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     12       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
